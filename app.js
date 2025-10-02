@@ -19,7 +19,7 @@ try {
     console.error("No se pudo cargar el JSON con la informacion de los libros:", err.message);
 }
 
-app.get("/libros", (req, res) => {
+app.get("/api/libros", (req, res) => {
     try {
         res.json(libros);
     } catch (error) {
@@ -27,7 +27,7 @@ app.get("/libros", (req, res) => {
     }
 });
 
-app.get("/libros/:id", (req, res) => {
+app.get("/api/libros/:id", (req, res) => {
     try {
         const { id } = req.params;
         const libro = libros.find(l => l.id === id);
@@ -39,7 +39,7 @@ app.get("/libros/:id", (req, res) => {
     }
 });
 
-app.post("/libros", (req, res) => {
+app.post("/api/libros", (req, res) => {
     
     try {
         const newLibro = req.body;
@@ -57,7 +57,7 @@ app.post("/libros", (req, res) => {
     }
 });
 
-app.delete("/libros/:id", (req, res) => {
+app.delete("/api/libros/:id", (req, res) => {
    
     const { id } = req.params;
     const index = libros.findIndex(l => l.id === id);

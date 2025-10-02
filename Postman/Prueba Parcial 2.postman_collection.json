@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "e3adc6dd-fa32-4525-a257-eb157e38f4ac",
+		"name": "Prueba Parcial 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44202424",
+		"_collection_link": "https://ishai-9989661.postman.co/workspace/Ishai's-Workspace~f8acf434-fea6-48b3-8552-11650564513b/collection/44202424-e3adc6dd-fa32-4525-a257-eb157e38f4ac?action=share&source=collection_link&creator=44202424"
+	},
+	"item": [
+		{
+			"name": "Eliminar Libro",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Creacion Libro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"f2a9b4d2-1c4a-4c82-b6f5-9d6f93c1a8e3\",\r\n  \"title\": \"El jardín de las luciérnagas\",\r\n  \"author\": \"Mariana López\",\r\n  \"year\": 2015\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/libros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"libros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar por ID",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Libros",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
