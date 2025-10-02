@@ -10,20 +10,20 @@ app.use(express.json());
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const librosPath = path.join(__dirname, "src", "libros_1000.json");
+const librosPath = path.join(__dirname, "data", "libros_1000.json");
 let libros = [];
 try {
     const raw = fs.readFileSync(librosPath, "utf-8");
     libros = JSON.parse(raw);
 } catch (err) {
-    console.error("No se pudo cargar el archivo de libros:", err.message);
+    console.error("No se pudo cargar el JSON con la informacion de los libros:", err.message);
 }
 
 app.get("/libros", (req, res) => {
     try {
         res.json(libros);
     } catch (error) {
-        res.status(500).json({ error: "Error al leer datos" });
+        res.status(500).json({ error: "Error al leer la informacion" });
     }
 });
 
@@ -35,7 +35,7 @@ app.get("/libros/:id", (req, res) => {
         return res.status(404).json({ error: "Libro no existe" });
         
     } catch (error) {
-        return res.status(400).json({ error: "Id Invalido" });
+        return res.status(400).json({ error: "Id invalido" });
     }
 });
 
@@ -48,7 +48,7 @@ app.post("/libros", (req, res) => {
         }
         const exists = libros.some(l => l.title === newLibro.title && l.year === newLibro.year);
         if (exists) {
-            return res.status(409).json({ error: "Libro con este título y año ya existe" });
+            return res.status(409).json({ error: "Libro ya existente" });
         }
         libros.push(newLibro);
         res.status(201).json(newLibro);
@@ -63,15 +63,15 @@ app.delete("/libros/:id", (req, res) => {
     const index = libros.findIndex(l => l.id === id);
     
     if (!uuidRegex.test(id)) {
-        return res.status(400).json({ error: "Id inválido" });
+        return res.status(400).json({ error: "Id invalido" });
     }
 
     if (index !== -1) {
         libros.splice(index, 1);
         res.status(200);
-        res.json({ message: "Libro eliminado" });
+        res.json({ message: "Libro eliminado exitosamente" });
     } else {
-        res.status(404).json({ error: "Libro no existe" });
+        res.status(404).json({ error: "Libro no existe en el registro" });
     }
 });
 
@@ -93,12 +93,14 @@ app.get('/api/libros/:id', (req, res, next) => {
 const PORT = 3000;
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Sevidor escuchando en http://localhost:${PORT}`);
 });
 
+
+
 app.use((err, req, res, next) => {
-    console.error('Unexpected error:', err);
-    res.status(500).json({ error: err?.message || 'Internal Server Error' });
+    console.error('Error inesperado:', err);
+    res.status(500).json({ error: err?.message || 'Error Interno en el servidor' });
 });
 
 export default app;
